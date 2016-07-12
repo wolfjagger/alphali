@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -12,5 +12,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Designs\PubSub\death_publisher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Designs\PubSub\death_subscriber.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\death_publisher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\death_subscriber.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.h" />
   </ItemGroup>
 </Project>
