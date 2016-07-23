@@ -21,8 +21,8 @@ death_publisher& death_publisher::operator=(death_publisher&& other) {
 		publish();
 
 		list_subs = std::move(other.list_subs);
-		for(auto* pSub : list_subs) {
-			pSub->pubMoved(other, *this);
+		for(auto* sub : list_subs) {
+			sub->pub_moved(other, *this);
 		}
 
 	}
@@ -57,11 +57,11 @@ void death_publisher::detach(death_subscriber& sub) {
 
 void death_publisher::publish() {
 
-	auto fcnKilled = [this](death_subscriber* sub) {
-		sub->pubKilled(*this);
+	auto fcn_killed = [this](death_subscriber* sub) {
+		sub->pub_killed(*this);
 	};
 
 	std::for_each(
-		list_subs.begin(), list_subs.end(), fcnKilled);
+		list_subs.begin(), list_subs.end(), fcn_killed);
 
 }

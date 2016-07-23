@@ -25,14 +25,14 @@ subscriber& subscriber::operator=(const subscriber& other) {
 		list_pubs = other.list_pubs;
 		map_to_update_fcn = other.map_to_update_fcn;
 
-		for(auto* p_pub : other.list_pubs) {
-			auto fcn_pub_killed = [this, &p_pub]() {
-				list_pubs.erase(p_pub);
+		for(auto* pub : other.list_pubs) {
+			auto fcn_pub_killed = [this, &pub]() {
+				list_pubs.erase(pub);
 			};
 			sub_death_sub.subscribe(
-				p_pub->pub_death_pub, std::move(fcn_pub_killed));
+				pub->pub_death_pub, std::move(fcn_pub_killed));
 
-			p_pub->attach(*this);
+			pub->attach(*this);
 		}
 
 	}
@@ -53,16 +53,16 @@ subscriber& subscriber::operator=(subscriber&& other) {
 		list_pubs = std::move(other.list_pubs);
 		map_to_update_fcn = std::move(other.map_to_update_fcn);
 
-		for(auto* p_pub : list_pubs) {
-			auto fcn_pub_killed = [this, &p_pub]() {
-				list_pubs.erase(p_pub);
+		for(auto* pub : list_pubs) {
+			auto fcn_pub_killed = [this, &pub]() {
+				list_pubs.erase(pub);
 			};
-			other.sub_death_sub.unsubscribe(p_pub->pub_death_pub);
+			other.sub_death_sub.unsubscribe(pub->pub_death_pub);
 			sub_death_sub.subscribe(
-				p_pub->pub_death_pub, std::move(fcn_pub_killed));
+				pub->pub_death_pub, std::move(fcn_pub_killed));
 
-			p_pub->detach(other);
-			p_pub->attach(*this);
+			pub->detach(other);
+			pub->attach(*this);
 		}
 
 	}
@@ -87,7 +87,7 @@ void subscriber::subscribe(
 		auto& old_fcn = map_to_update_fcn.at(&publisher);
 		auto tot_fcn = [old_fcn, fcn_update]() {
 			old_fcn();
-			fcnUpdate();
+			fcn_update();
 		};
 		map_to_update_fcn.at(&publisher) = std::move(tot_fcn);
 
@@ -133,30 +133,30 @@ void subscriber::update(publisher& pub) {
 
 
 void subscriber::pub_copied(
-	const publisher& pubOld, publisher& pub_new) {
+	const publisher& old_pub, publisher& new_pub) {
 
-	auto fcn_pub_killed = [this, &pub_new]() {
-		map_to_update_fcn.erase(&pub_new);
+	auto fcn_pub_killed = [this, &new_pub]() {
+		map_to_update_fcn.erase(&new_pub);
 	};
-	sub_death_sub.subscribe(pub_new.pub_death_pub, fcn_pub_killed);
+	sub_death_sub.subscribe(new_pub.pub_death_pub, fcn_pub_killed);
 
 	//TODO: Find another waaaaaaay!!!
-	auto fcnUpdate = map_to_update_fcn.at(&pubOld);
-	map_to_update_fcn.emplace(&pub_new, std::move(fcnUpdate));
+	auto fcn_update = map_to_update_fcn.at(&old_pub);
+	map_to_update_fcn.emplace(&new_pub, std::move(fcn_update));
 
 }
 
 void subscriber::pub_moved(
-	publisher& pub_old, publisher& pub_new) {
+	publisher& old_pub, publisher& new_pub) {
 
-	auto fcnPubKilled = [this, &pub_new]() {
-		map_to_update_fcn.erase(&pub_new);
+	auto fcn_pub_killed = [this, &new_pub]() {
+		map_to_update_fcn.erase(&new_pub);
 	};
-	sub_death_sub.unsubscribe(pub_old.pub_death_pub);
-	sub_death_sub.subscribe(pub_new.pub_death_pub, fcnPubKilled);
+	sub_death_sub.unsubscribe(old_pub.pub_death_pub);
+	sub_death_sub.subscribe(new_pub.pub_death_pub, fcn_pub_killed);
 
-	auto fcnUpdate = std::move(map_to_update_fcn.at(&pub_old));
-	map_to_update_fcn.erase(&pub_old);
-	map_to_update_fcn.emplace(&pub_new, std::move(fcnUpdate));
+	auto fcn_update = std::move(map_to_update_fcn.at(&old_pub));
+	map_to_update_fcn.erase(&old_pub);
+	map_to_update_fcn.emplace(&new_pub, std::move(fcn_update));
 
 }

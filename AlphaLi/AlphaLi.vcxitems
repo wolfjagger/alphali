@@ -25,4 +25,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)Designs\CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)Designs\PubSub\CMakeLists.txt" />
+  </ItemGroup>
 </Project>

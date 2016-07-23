@@ -50,9 +50,9 @@ private:
 
 
 
-	void pub_copied(const publisher& pubOld, publisher& pubNew);
+	void pub_copied(const publisher& old_pub, publisher& new_pub);
 
-	void pub_moved(publisher& pubOld, publisher& pubNew);
+	void pub_moved(publisher& old_pub, publisher& new_pub);
 
 
 

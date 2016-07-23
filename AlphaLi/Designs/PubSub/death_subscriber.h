@@ -10,14 +10,14 @@ class death_publisher;
 
 class death_subscriber {
 
-	using Set = std::unordered_set<death_publisher*>;
-	using Map = std::unordered_map<
+	using set = std::unordered_set<death_publisher*>;
+	using map = std::unordered_map<
 		const death_publisher*, std::function<void()>>;
 
 private:
 
-	Set list_pubs;
-	Map map_to_death_fcn;
+	set list_pubs;
+	map map_to_death_fcn;
 
 public:
 
@@ -43,8 +43,8 @@ public:
 
 private:
 
-	void pubMoved(
-		death_publisher& pubOld, death_publisher& pubNew);
+	void pub_moved(
+		death_publisher& old_pub, death_publisher& new_pub);
 
 	void pub_killed(death_publisher& pub);
 

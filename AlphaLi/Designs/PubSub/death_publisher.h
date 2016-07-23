@@ -9,7 +9,7 @@ class death_publisher {
 
 private:
 
-	std::unordered_set<death_subscriber*> listSubs;
+	std::unordered_set<death_subscriber*> list_subs;
 
 public:
 

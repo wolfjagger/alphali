@@ -23,8 +23,8 @@ death_subscriber& death_subscriber::operator=(const death_subscriber& other) {
 
 		list_pubs = other.list_pubs;
 		map_to_death_fcn = other.map_to_death_fcn;
-		for(auto* p_pub : list_pubs) {
-			p_pub->attach(*this);
+		for(auto* pub : list_pubs) {
+			pub->attach(*this);
 		}
 
 	}
@@ -44,9 +44,9 @@ death_subscriber& death_subscriber::operator=(death_subscriber&& other) {
 
 		list_pubs = std::move(other.list_pubs);
 		map_to_death_fcn = std::move(other.map_to_death_fcn);
-		for(auto* p_pub : list_pubs) {
-			p_pub->detach(other);
-			p_pub->attach(*this);
+		for(auto* pub : list_pubs) {
+			pub->detach(other);
+			pub->attach(*this);
 		}
 
 	}
@@ -71,10 +71,10 @@ void death_subscriber::subscribe(
 
 	if(map_to_death_fcn.count(&pub) > 0) {
 
-		auto& oldFcn = map_to_death_fcn.at(&pub);
-		auto totFcn = [oldFcn, fcn_pub_death]() {
-			oldFcn();
-			fcnPubDeath();
+		auto& old_fcn = map_to_death_fcn.at(&pub);
+		auto totFcn = [old_fcn, fcn_pub_death]() {
+			old_fcn();
+			fcn_pub_death();
 		};
 		map_to_death_fcn.at(&pub) = std::move(totFcn);
 
@@ -100,7 +100,7 @@ void death_subscriber::unsubscribe(death_publisher& pub) {
 
 
 
-void death_subscriber::pubMoved(
+void death_subscriber::pub_moved(
 	death_publisher& pub_old, death_publisher& pub_new) {
 
 	auto fcn = std::move(map_to_death_fcn.at(&pub_old)); // Bad?
