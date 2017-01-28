@@ -6,44 +6,48 @@
 
 
 
-// JoeNote: Could consider implementing this as a policy,
-//  giving different functionality for, e.g. connection
-//  and publish timing policies.
+namespace alphali {
 
-class publisher {
+	// JoeNote: Could consider implementing this as a policy,
+	//  giving different functionality for, e.g. connection
+	//  and publish timing policies.
 
-private:
+	class publisher {
 
-	death_publisher pub_death_pub;
-	death_subscriber pub_death_sub;
-	std::forward_list<subscriber*> list_subs;
+	private:
+
+		death_publisher pub_death_pub;
+		death_subscriber pub_death_sub;
+		std::forward_list<subscriber*> list_subs;
 	
-public:
+	public:
 
-	publisher();
+		publisher();
 
-	publisher(const publisher& other);
-	publisher& operator=(const publisher& other);
+		publisher(const publisher& other);
+		publisher& operator=(const publisher& other);
 
-	publisher(publisher&& other);
-	publisher& operator=(publisher&& other);
+		publisher(publisher&& other);
+		publisher& operator=(publisher&& other);
 
-	~publisher();
-
-
-
-	void publish();
+		~publisher();
 
 
 
-private:
-
-	void attach(subscriber& subscriber);
-
-	void detach(subscriber& sub);
+		void publish();
 
 
 
-	friend class subscriber;
+	private:
 
-};
+		void attach(subscriber& subscriber);
+
+		void detach(subscriber& sub);
+
+
+
+		friend class subscriber;
+
+	};
+
+}

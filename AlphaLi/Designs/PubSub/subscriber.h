@@ -5,57 +5,61 @@
 
 
 
-class publisher;
+namespace alphali {
 
-class subscriber {
+	class publisher;
 
-	using set = std::unordered_set<publisher*>;
-	using map = std::unordered_map<
-		const publisher*, std::function<void()>>;
+	class subscriber {
 
-private:
+		using set = std::unordered_set<publisher*>;
+		using map = std::unordered_map<
+			const publisher*, std::function<void()>>;
 
-	death_publisher sub_death_pub;
-	death_subscriber sub_death_sub;
-	set list_pubs;
-	map map_to_update_fcn;
+	private:
 
-public:
+		death_publisher sub_death_pub;
+		death_subscriber sub_death_sub;
+		set list_pubs;
+		map map_to_update_fcn;
 
-	subscriber();
+	public:
 
-	subscriber(const subscriber& other);
-	subscriber& operator=(const subscriber& other);
+		subscriber();
 
-	subscriber(subscriber&& other);
-	subscriber& operator=(subscriber&& other);
+		subscriber(const subscriber& other);
+		subscriber& operator=(const subscriber& other);
 
-	~subscriber();
+		subscriber(subscriber&& other);
+		subscriber& operator=(subscriber&& other);
 
-
-
-	// Note: Subscribing with a function object that holds a
-	//  reference to either publisher or subscriber is undefined
-	//  behavior and should be treated with care.
-	void subscribe(
-		publisher& publisher, std::function<void()> fcn_update);
-
-	void unsubscribe(publisher& pub);
+		~subscriber();
 
 
 
-private:
+		// Note: Subscribing with a function object that holds a
+		//  reference to either publisher or subscriber is undefined
+		//  behavior and should be treated with care.
+		void subscribe(
+			publisher& publisher, std::function<void()> fcn_update);
 
-	void update(publisher& pub);
-
-
-
-	void pub_copied(const publisher& old_pub, publisher& new_pub);
-
-	void pub_moved(publisher& old_pub, publisher& new_pub);
+		void unsubscribe(publisher& pub);
 
 
 
-	friend class publisher;
+	private:
 
-};
+		void update(publisher& pub);
+
+
+
+		void pub_copied(const publisher& old_pub, publisher& new_pub);
+
+		void pub_moved(publisher& old_pub, publisher& new_pub);
+
+
+
+		friend class publisher;
+
+	};
+
+}

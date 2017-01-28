@@ -1,7 +1,7 @@
 @echo off
 CD ..\AlphaLi.Test
 set project_dir=%cd%
-CD x64\Release
+CD x64\Debug
 :test_num_choice
 
 set /p test_num="Tests to run? (all, default=pick)  "

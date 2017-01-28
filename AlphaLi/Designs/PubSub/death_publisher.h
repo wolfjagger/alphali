@@ -5,39 +5,43 @@
 
 
 
-class death_publisher {
+namespace alphali {
 
-private:
+	class death_publisher {
 
-	std::unordered_set<death_subscriber*> list_subs;
+	private:
 
-public:
+		std::unordered_set<death_subscriber*> list_subs;
 
-	death_publisher();
+	public:
 
-	// Copies deleted to minimize confusion about double-deletes
-	death_publisher(const death_publisher& other) = delete;
-	death_publisher& operator=(const death_publisher& other) = delete;
+		death_publisher();
 
-	death_publisher(death_publisher&& other);
-	death_publisher& operator=(death_publisher&& other);
+		// Copies deleted to minimize confusion about double-deletes
+		death_publisher(const death_publisher& other) = delete;
+		death_publisher& operator=(const death_publisher& other) = delete;
 
-	~death_publisher();
+		death_publisher(death_publisher&& other);
+		death_publisher& operator=(death_publisher&& other);
 
-
-
-private:
-
-	void attach(death_subscriber& sub);
-
-	void detach(death_subscriber& sub);
+		~death_publisher();
 
 
 
-	void publish();
+	private:
+
+		void attach(death_subscriber& sub);
+
+		void detach(death_subscriber& sub);
 
 
 
-	friend class death_subscriber;
+		void publish();
 
-};
+
+
+		friend class death_subscriber;
+
+	};
+
+}

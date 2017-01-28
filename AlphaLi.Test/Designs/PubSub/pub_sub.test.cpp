@@ -2,6 +2,8 @@
 #include <memory>
 #include "Designs/PubSub/publisher.h"
 
+using namespace alphali;
+
 
 
 TEST_CASE("Death Publisher-Subscriber", "[Designs][PubSub]") {

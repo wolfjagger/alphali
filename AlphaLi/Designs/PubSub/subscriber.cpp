@@ -1,6 +1,8 @@
 #include "subscriber.h"
 #include "publisher.h"
 
+using namespace alphali;
+
 
 
 subscriber::subscriber()

@@ -2,6 +2,8 @@
 #include <algorithm>
 #include "death_publisher.h"
 
+using namespace alphali;
+
 
 
 death_subscriber::death_subscriber()

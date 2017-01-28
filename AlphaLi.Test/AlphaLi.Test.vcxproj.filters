@@ -24,15 +24,18 @@
     <ClInclude Include="catch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Containers\random_iterator.test.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Designs\PubSub\death_pub_sub.test.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Designs\PubSub\pub_sub.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,6 +43,7 @@
     <Text Include="CMakeLists.txt" />
     <Text Include="Designs\CMakeLists.txt" />
     <Text Include="Designs\PubSub\CMakeLists.txt" />
+    <Text Include="Containers\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Designs\PubSub\CMakeLists.txt.bak" />

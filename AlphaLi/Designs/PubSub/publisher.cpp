@@ -1,6 +1,8 @@
 #include "publisher.h"
 #include <algorithm>
 
+using namespace alphali;
+
 
 
 publisher::publisher()

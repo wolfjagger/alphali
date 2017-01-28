@@ -24,6 +24,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\death_subscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Containers\random_iterator.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="$(MSBuildThisFileDirectory)CMakeLists.txt" />
