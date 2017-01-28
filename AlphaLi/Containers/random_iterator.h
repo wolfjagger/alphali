@@ -1,6 +1,6 @@
 #pragma once
 
-http://stackoverflow.com/questions/41906711/get-iterator-from-a-container-uniformly-random-from-iterators-that-satisfy-a-pre/41906959
+//http://stackoverflow.com/questions/41906711/get-iterator-from-a-container-uniformly-random-from-iterators-that-satisfy-a-pre/41906959
 
 #include <deque>
 #include <random>
