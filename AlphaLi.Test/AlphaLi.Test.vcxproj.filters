@@ -24,9 +24,6 @@
     <ClInclude Include="catch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Containers\random_iterator.test.cpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -38,12 +35,19 @@
     <ClCompile Include="Designs\PubSub\pub_sub.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Containers\random_iterator.test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util\static_for.test.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
     <Text Include="Designs\CMakeLists.txt" />
     <Text Include="Designs\PubSub\CMakeLists.txt" />
     <Text Include="Containers\CMakeLists.txt" />
+    <Text Include="util\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Designs\PubSub\CMakeLists.txt.bak" />

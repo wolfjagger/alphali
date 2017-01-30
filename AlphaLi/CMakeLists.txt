@@ -1,6 +1,6 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-subdirs(Designs)
+subdirs(containers, designs, util)
 
 # Create a library called "AlphaLi" with the source files from subdirs.
 # The extension is already found. Any number of sources could be listed here.

@@ -1,6 +1,6 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-subdirs(Containers, Designs)
+subdirs(containers, designs, util)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -2,8 +2,6 @@
 #include <vector>
 #include "Containers/random_iterator.h"
 
-#include <iostream>
-
 using namespace alphali;
 
 

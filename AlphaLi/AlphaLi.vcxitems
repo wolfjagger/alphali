@@ -25,10 +25,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Containers\random_iterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)util\static_for.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="$(MSBuildThisFileDirectory)CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)containers\CMakeLists.txt" />
     <Text Include="$(MSBuildThisFileDirectory)Designs\CMakeLists.txt" />
     <Text Include="$(MSBuildThisFileDirectory)Designs\PubSub\CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)util\CMakeLists.txt" />
   </ItemGroup>
 </Project>
