@@ -25,6 +25,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Containers\random_iterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)util\operators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)util\random.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)util\static_for.h" />
   </ItemGroup>
