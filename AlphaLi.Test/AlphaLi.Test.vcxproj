@@ -180,6 +180,7 @@
     <ClCompile Include="Containers\random_iterator.test.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
+    <ClCompile Include="util\random.test.cpp" />
     <ClCompile Include="util\static_for.test.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>

@@ -38,8 +38,11 @@
     <ClCompile Include="Containers\random_iterator.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="util\random.test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="util\static_for.test.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
