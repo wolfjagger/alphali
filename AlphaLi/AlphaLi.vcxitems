@@ -25,6 +25,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Designs\PubSub\subscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Containers\random_iterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)util\math.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)util\operators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)util\random.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)util\static_for.h" />
@@ -35,5 +36,8 @@
     <Text Include="$(MSBuildThisFileDirectory)Designs\CMakeLists.txt" />
     <Text Include="$(MSBuildThisFileDirectory)Designs\PubSub\CMakeLists.txt" />
     <Text Include="$(MSBuildThisFileDirectory)util\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\.gitignore" />
   </ItemGroup>
 </Project>
