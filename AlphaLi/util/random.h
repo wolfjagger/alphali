@@ -18,13 +18,13 @@ namespace alphali {
 	// Boolean
 
 	// Does event with probability prob happen?
-	bool take_chance(double prob) {
+	inline bool take_chance(double prob) {
 		auto bern_prob = std::bernoulli_distribution(prob);
 		return bern_prob(random::rand_engine);
 	}
 	
 	// 50/50 coin flip
-	bool coin_flip() noexcept {
+	inline bool coin_flip() noexcept {
 		return take_chance(0.5);
 	}
 
@@ -32,13 +32,13 @@ namespace alphali {
 	// Integer
 
 	// Random integer btwn min and max, inclusive
-	int rand_inclusive(int min, int max) {
+	inline int rand_inclusive(int min, int max) {
 		auto dist = std::uniform_int_distribution<int>(min, max);
 		return dist(random::rand_engine);
 	}
 
 	// Random integer in [0, num]
-	int rand_leq(unsigned int num) noexcept {
+	inline int rand_leq(unsigned int num) noexcept {
 		return rand_inclusive(0, static_cast<int>(num));
 	}
 
@@ -47,7 +47,7 @@ namespace alphali {
 
 	// A vector of size vec_size with random numbers in [min, max],
 	//  with or without possible duplicates
-	std::vector<int> rand_vec_inclusive(
+	inline std::vector<int> rand_vec_inclusive(
 		int min, int max,
 		unsigned vec_size, bool with_duplicates = false) {
 		
@@ -88,7 +88,7 @@ namespace alphali {
 
 	// A vector of size vec_size with random numbers in [0, num),
 	//  with or without possible duplicates
-	std::vector<int> rand_vec_leq(
+	inline std::vector<int> rand_vec_leq(
 		unsigned num, unsigned vec_size, bool with_duplicates = false) {
 		return rand_vec_inclusive(
 			0, static_cast<int>(num), vec_size, with_duplicates);
@@ -98,13 +98,23 @@ namespace alphali {
 	// Double
 	
 	// Random number btwn 0 and 1
-	double unit_rand() noexcept {
+	inline double unit_rand() noexcept {
 		return random::rand_uniform(random::rand_engine);
 	}
 
 	// Random number btwn min and max
-	double rand_btwn(double min, double max) noexcept {
+	inline double rand_btwn(double min, double max) noexcept {
 		return min + unit_rand()*(max-min);
+	}
+
+
+
+	// Shuffle
+	template<class RandomIt>
+	void shuffle(RandomIt first, RandomIt last) {
+
+		shuffle(first, last, random::rd);
+
 	}
 
 }
