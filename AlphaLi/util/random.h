@@ -113,7 +113,7 @@ namespace alphali {
 	template<class RandomIt>
 	void shuffle(RandomIt first, RandomIt last) {
 
-		shuffle(first, last, random::rd);
+		std::shuffle(first, last, random::rand_engine);
 
 	}
 

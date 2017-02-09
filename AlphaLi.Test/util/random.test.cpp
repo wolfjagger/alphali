@@ -148,3 +148,27 @@ TEST_CASE("Random float", "[util]") {
 	}
 
 }
+
+
+
+TEST_CASE("Random shuffle", "[util]") {
+
+	SECTION("Shuffle changes container order.") {
+
+		constexpr auto size = 1000;
+
+		auto vec = std::vector<unsigned int>();
+		vec.reserve(size);
+		for (auto i = 0; i < size; ++i) vec.emplace_back(i);
+
+		auto vec_cpy = vec;
+		CHECK(vec == vec_cpy);
+
+		shuffle(vec.begin(), vec.end());
+
+		CHECK(!std::is_sorted(vec.cbegin(), vec.cend()));
+		CHECK(vec != vec_cpy);
+
+	}
+
+}
