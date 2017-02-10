@@ -96,6 +96,11 @@ TEST_CASE("Random int", "[util]") {
 		constexpr auto min = 1;
 		constexpr auto max = 6;
 
+		auto lam_no_dups = [](std::vector<int>& vec) {
+			std::sort(vec.begin(), vec.end());
+			return std::adjacent_find(vec.begin(), vec.end()) == vec.end();
+		};
+
 		REQUIRE_THROWS(rand_vec_leq(max, size_throw));
 
 		auto vec_leq = rand_vec_leq(max, size_real);
@@ -103,6 +108,7 @@ TEST_CASE("Random int", "[util]") {
 		auto minmax_leq = std::minmax_element(vec_leq.cbegin(), vec_leq.cend());
 		CHECK(*minmax_leq.first >= 0);
 		CHECK(*minmax_leq.second <= max);
+		CHECK(lam_no_dups(vec_leq));
 
 		CHECK_THROWS(rand_vec_inclusive(min, max, size_throw));
 
@@ -111,6 +117,14 @@ TEST_CASE("Random int", "[util]") {
 		auto minmax_btwn = std::minmax_element(vec_btwn.cbegin(), vec_btwn.cend());
 		CHECK(*minmax_btwn.first >= min);
 		CHECK(*minmax_btwn.second <= max);
+		CHECK(lam_no_dups(vec_btwn));
+
+		auto vec_empty = rand_vec_leq(max, 0);
+		CHECK(vec_empty.size() == 0);
+
+		auto vec_full = rand_vec_leq(max, max + 1);
+		CHECK(vec_full.size() == max + 1);
+		CHECK(lam_no_dups(vec_full));
 
 	}
 
