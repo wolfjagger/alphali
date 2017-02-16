@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlphaLi", "AlphaLi\AlphaLi.vcxitems", "{45D41ACC-2C3C-43D2-BC10-02AA73FFC7C7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "alphali", "alphali.vcxitems", "{45D41ACC-2C3C-43D2-BC10-02AA73FFC7C7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlphaLi.Test", "AlphaLi.Test\AlphaLi.Test.vcxproj", "{ECE2B819-B89D-4D3B-9230-6CDFD7142C1C}"
 EndProject
@@ -18,10 +18,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlphaLi.Static.2015", "Alph
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		AlphaLi\AlphaLi.vcxitems*{0c1a4ad5-5239-4158-95cf-a4a817f60670}*SharedItemsImports = 4
-		AlphaLi\AlphaLi.vcxitems*{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}*SharedItemsImports = 9
-		AlphaLi\AlphaLi.vcxitems*{6498550e-89df-4c09-a89b-e22018c60b21}*SharedItemsImports = 4
-		AlphaLi\AlphaLi.vcxitems*{ece2b819-b89d-4d3b-9230-6cdfd7142c1c}*SharedItemsImports = 4
+		alphali.vcxitems*{0c1a4ad5-5239-4158-95cf-a4a817f60670}*SharedItemsImports = 4
+		alphali.vcxitems*{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}*SharedItemsImports = 9
+		alphali.vcxitems*{6498550e-89df-4c09-a89b-e22018c60b21}*SharedItemsImports = 4
+		alphali.vcxitems*{ece2b819-b89d-4d3b-9230-6cdfd7142c1c}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

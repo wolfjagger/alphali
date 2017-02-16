@@ -80,7 +80,7 @@ namespace alphali {
 					if (escape >= escape_max) {
 						
 						auto remaining_vec = std::vector<int>();
-						remaining_vec.reserve(max - min + 1);
+						remaining_vec.reserve(static_cast<size_t>(max - min + 1));
 						for (auto i = min; i <= max; ++i) {
 							if(std::none_of(prev_array.cbegin(), prev_array.cend(),
 								[i](int j) { return i == j;	})) {
@@ -92,8 +92,8 @@ namespace alphali {
 
 						// Guaranteed that size > 0, since otherwise
 						//  rand_vec_inclusive would have called vec_size=0 function
-						auto new_num_idx = rand_leq(
-							static_cast<unsigned int>(remaining_vec.size()-1));
+						auto new_num_idx = static_cast<size_t>(rand_leq(
+							static_cast<unsigned int>(remaining_vec.size()-1)));
 
 						new_num = remaining_vec[new_num_idx];
 

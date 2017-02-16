@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{45d41acc-2c3c-43d2-bc10-02aa73ffc7c7}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_publisher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_subscriber.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\publisher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\subscriber.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_publisher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_subscriber.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\publisher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\subscriber.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\containers\random_iterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\math.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\operators.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\random.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\static_for.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)include\alphali\containers\CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)include\alphali\designs\CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\CMakeLists.txt" />
+    <Text Include="$(MSBuildThisFileDirectory)include\alphali\util\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\.gitignore" />
+  </ItemGroup>
+</Project>

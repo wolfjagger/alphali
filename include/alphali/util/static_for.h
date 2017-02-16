@@ -1,5 +1,8 @@
 #pragma once
 
+#pragma warning(push)
+#pragma warning(disable: 4100)
+
 
 
 namespace alphali {
@@ -20,3 +23,5 @@ namespace alphali {
 	};
 
 }
+
+#pragma warning(pop)

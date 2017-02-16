@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <memory>
-#include "Designs/PubSub/publisher.h"
+#include "alphali/designs/pubsub/publisher.h"
 
 using namespace alphali;
 
