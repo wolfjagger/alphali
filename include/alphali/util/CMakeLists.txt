@@ -1,7 +1,11 @@
 # Set source files
 SET(SOURCE
 	${SOURCE}
+	${CMAKE_CURRENT_SOURCE_DIR}/math.h
+	${CMAKE_CURRENT_SOURCE_DIR}/operators.h
+	${CMAKE_CURRENT_SOURCE_DIR}/random.h
 	${CMAKE_CURRENT_SOURCE_DIR}/static_for.h
+	${CMAKE_CURRENT_SOURCE_DIR}/timer.h
 	PARENT_SCOPE
 )
 

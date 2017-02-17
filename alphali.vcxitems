@@ -29,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\operators.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\random.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\static_for.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\util\timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="$(MSBuildThisFileDirectory)CMakeLists.txt" />
