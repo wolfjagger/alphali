@@ -46,8 +46,12 @@ namespace alphali {
 				auto time_diff = duration_cast<milliseconds>(*end_time - beg_time);
 				auto secs = float(time_diff.count()) / 1000;
 
-				std::cout << std::move(code_block_description)
-					<< " took " << secs << " secs" << std::endl;
+				if (code_block_description.empty()) {
+					std::cout << "Took " << secs << " secs" << std::endl;
+				} else {
+					std::cout << std::move(code_block_description)
+						<< " took " << secs << " secs" << std::endl;
+				}
 
 			} else {
 
