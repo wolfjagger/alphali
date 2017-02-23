@@ -1,5 +1,6 @@
 #include "subscriber.h"
 #include "publisher.h"
+#include "collaborator.h"
 
 using namespace alphali;
 
@@ -121,6 +122,21 @@ void subscriber::unsubscribe(publisher& publisher) {
 		map_to_update_fcn.erase(&publisher);
 
 	}
+
+}
+
+
+
+void subscriber::subscribe(
+	collaborator& collab, std::function<void()> fcn_update) {
+
+	subscribe(collab.pub, std::move(fcn_update));
+
+}
+
+void subscriber::unsubscribe(collaborator& collab) {
+
+	unsubscribe(collab.pub);
 
 }
 

@@ -14,12 +14,14 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\collaborator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_publisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_subscriber.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\publisher.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\subscriber.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\collaborator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_subscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\publisher.h" />

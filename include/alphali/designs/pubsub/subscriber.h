@@ -8,6 +8,7 @@
 namespace alphali {
 
 	class publisher;
+	class collaborator;
 
 	class subscriber {
 
@@ -40,9 +41,14 @@ namespace alphali {
 		//  reference to either publisher or subscriber is undefined
 		//  behavior and should be treated with care.
 		void subscribe(
-			publisher& publisher, std::function<void()> fcn_update);
+			publisher& pub, std::function<void()> fcn_update);
 
 		void unsubscribe(publisher& pub);
+
+		void subscribe(
+			collaborator& collab, std::function<void()> fcn_update);
+
+		void unsubscribe(collaborator& collab);
 
 
 
