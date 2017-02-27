@@ -12,8 +12,8 @@ namespace alphali {
 
 	class subscriber {
 
-		using set = std::unordered_set<publisher*>;
-		using map = std::unordered_map<
+		using set = std::set<publisher*>;
+		using map = std::map<
 			const publisher*, std::function<void()>>;
 
 	private:

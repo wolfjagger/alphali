@@ -1,8 +1,8 @@
 #pragma once
 
-#include <unordered_set>
+#include <set>
 #include <functional>
-#include <unordered_map>
+#include <map>
 
 
 
@@ -12,8 +12,8 @@ namespace alphali {
 
 	class death_subscriber {
 
-		using set = std::unordered_set<death_publisher*>;
-		using map = std::unordered_map<
+		using set = std::set<death_publisher*>;
+		using map = std::map<
 			const death_publisher*, std::function<void()>>;
 
 	private:

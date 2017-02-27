@@ -1,6 +1,5 @@
 #pragma once
 
-#include <forward_list>
 #include "subscriber.h"
 #include "death_publisher.h"
 
@@ -18,7 +17,7 @@ namespace alphali {
 
 		death_publisher pub_death_pub;
 		death_subscriber pub_death_sub;
-		std::forward_list<subscriber*> list_subs;
+		std::set<subscriber*> list_subs;
 	
 	public:
 

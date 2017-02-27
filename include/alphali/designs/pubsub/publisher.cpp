@@ -27,7 +27,7 @@ publisher& publisher::operator=(const publisher& other) {
 
 		for(auto* p_sub : list_subs) {
 			auto fcn_sub_killed = [this, &p_sub]() {
-				list_subs.remove(p_sub);
+				list_subs.erase(p_sub);
 			};
 			pub_death_sub.subscribe(
 				p_sub->sub_death_pub, std::move(fcn_sub_killed));
@@ -54,7 +54,7 @@ publisher& publisher::operator=(publisher&& other) {
 
 		for(auto* pSub : list_subs) {
 			auto fcnSubKilled = [this, &pSub]() {
-				list_subs.remove(pSub);
+				list_subs.erase(pSub);
 			};
 			other.pub_death_sub.unsubscribe(pSub->sub_death_pub);
 			pub_death_sub.subscribe(
@@ -92,17 +92,17 @@ void publisher::publish() {
 void publisher::attach(subscriber& subscriber) {
 
 	auto fcn_sub_killed = [this, &subscriber]() {
-		list_subs.remove(&subscriber);
+		list_subs.erase(&subscriber);
 	};
 	pub_death_sub.subscribe(subscriber.sub_death_pub, fcn_sub_killed);
 
-	list_subs.emplace_front(&subscriber);
+	list_subs.emplace(&subscriber);
 
 }
 
 void publisher::detach(subscriber& subscriber) {
 
 	pub_death_sub.unsubscribe(subscriber.sub_death_pub);
-	list_subs.remove(&subscriber);
+	list_subs.erase(&subscriber);
 
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_set>
+#include <set>
 #include "death_subscriber.h"
 
 
@@ -11,7 +11,7 @@ namespace alphali {
 
 	private:
 
-		std::unordered_set<death_subscriber*> list_subs;
+		std::set<death_subscriber*> list_subs;
 
 	public:
 
