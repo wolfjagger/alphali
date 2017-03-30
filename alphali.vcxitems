@@ -24,6 +24,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\collaborator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\death_subscriber.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\detail\pubsub_log.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\publisher.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\designs\pubsub\subscriber.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)include\alphali\containers\random_iterator.h" />

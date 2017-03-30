@@ -1,14 +1,9 @@
 #include "publisher.h"
 #include <algorithm>
 #include <iostream>
+#include "detail/pubsub_log.h"
 
 using namespace alphali;
-
-
-
-namespace {
-	const bool DEBUG = false;
-}
 
 
 
@@ -17,7 +12,7 @@ publisher::publisher()
 	pub_death_sub(),
 	list_subs() {
 
-	if (DEBUG) std::cout << "Pub ctor\n";
+	if (pubsub_DEBUG) std::cout << "Pub ctor\n";
 
 }
 
@@ -30,7 +25,7 @@ publisher& publisher::operator=(const publisher& other) {
 
 	if(this != &other) {
 
-		if (DEBUG) std::cout << "Pub copy\n";
+		if (pubsub_DEBUG) std::cout << "Pub copy\n";
 
 		pub_death_pub = death_publisher();
 		pub_death_sub = death_subscriber();
@@ -59,7 +54,7 @@ publisher& publisher::operator=(publisher&& other) {
 
 	if(this != &other) {
 
-		if (DEBUG) std::cout << "Pub move\n";
+		if (pubsub_DEBUG) std::cout << "Pub move\n";
 
 		pub_death_pub = death_publisher();
 		pub_death_sub = death_subscriber();
@@ -87,14 +82,14 @@ publisher& publisher::operator=(publisher&& other) {
 
 
 publisher::~publisher() {
-	if (DEBUG) std::cout << "Pub dtor\n";
+	if (pubsub_DEBUG) std::cout << "Pub dtor\n";
 }
 
 
 
 void publisher::publish() {
 
-	if (DEBUG) {
+	if (pubsub_DEBUG) {
 		std::cout << "publish" << std::endl;
 		std::cout << "num: " << list_subs.size() << std::endl;
 	}
@@ -109,7 +104,7 @@ void publisher::publish() {
 
 void publisher::attach(subscriber& subscriber) {
 
-	if (DEBUG) std::cout << "attach" << std::endl;
+	if (pubsub_DEBUG) std::cout << "attach" << std::endl;
 
 	auto fcn_sub_killed = [this, &subscriber]() {
 		list_subs.erase(&subscriber);
@@ -122,7 +117,7 @@ void publisher::attach(subscriber& subscriber) {
 
 void publisher::detach(subscriber& subscriber) {
 
-	if (DEBUG) std::cout << "detach" << std::endl;
+	if (pubsub_DEBUG) std::cout << "detach" << std::endl;
 
 	pub_death_sub.unsubscribe(subscriber.sub_death_pub);
 	list_subs.erase(&subscriber);

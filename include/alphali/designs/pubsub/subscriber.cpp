@@ -2,14 +2,9 @@
 #include <iostream>
 #include "publisher.h"
 #include "collaborator.h"
+#include "detail/pubsub_log.h"
 
 using namespace alphali;
-
-
-
-namespace {
-	const bool DEBUG = false;
-}
 
 
 
@@ -19,7 +14,7 @@ subscriber::subscriber()
 	list_pubs(),
 	map_to_update_fcn() {
 
-	if (DEBUG) std::cout << "Sub ctor\n";
+	if (pubsub_DEBUG) std::cout << "Sub ctor\n";
 
 }
 
@@ -32,7 +27,7 @@ subscriber& subscriber::operator=(const subscriber& other) {
 
 	if(this != &other) {
 
-		if (DEBUG) std::cout << "Sub copy\n";
+		if (pubsub_DEBUG) std::cout << "Sub copy\n";
 
 		sub_death_pub = death_publisher();
 		sub_death_sub = death_subscriber();
@@ -62,7 +57,7 @@ subscriber& subscriber::operator=(subscriber&& other) {
 
 	if(this != &other) {
 
-		if(DEBUG) std::cout << "Sub move\n";
+		if(pubsub_DEBUG) std::cout << "Sub move\n";
 
 		sub_death_pub = death_publisher();
 		sub_death_sub = death_subscriber();
@@ -90,7 +85,7 @@ subscriber& subscriber::operator=(subscriber&& other) {
 
 
 subscriber::~subscriber() {
-	if (DEBUG) std::cout << "Sub dtor\n";
+	if (pubsub_DEBUG) std::cout << "Sub dtor\n";
 }
 
 
@@ -98,7 +93,7 @@ subscriber::~subscriber() {
 void subscriber::subscribe(
 	publisher& publisher, std::function<void()> fcn_update) {
 
-	if (DEBUG) std::cout << "subscribe\n";
+	if (pubsub_DEBUG) std::cout << "subscribe\n";
 
 	if(list_pubs.count(&publisher) == 0) {
 
@@ -120,7 +115,7 @@ void subscriber::subscribe(
 
 void subscriber::unsubscribe(publisher& publisher) {
 
-	if (DEBUG) std::cout << "unsubscribe\n";
+	if (pubsub_DEBUG) std::cout << "unsubscribe\n";
 
 	if(list_pubs.count(&publisher) > 0) {
 
@@ -152,7 +147,7 @@ void subscriber::unsubscribe(collaborator& collab) {
 
 void subscriber::update(publisher& pub) {
 	
-	if (DEBUG) std::cout << "update\n";
+	if (pubsub_DEBUG) std::cout << "update\n";
 
 	auto matches = map_to_update_fcn.equal_range(&pub);
 	for (auto match = matches.first; match != matches.second; ++match) {
@@ -166,7 +161,7 @@ void subscriber::update(publisher& pub) {
 void subscriber::pub_copied(
 	const publisher& old_pub, publisher& new_pub) {
 
-	if (DEBUG) std::cout << "pub_copied\n";
+	if (pubsub_DEBUG) std::cout << "pub_copied\n";
 
 	auto fcn_pub_killed = [this, &new_pub]() {
 		map_to_update_fcn.erase(&new_pub);
@@ -183,7 +178,7 @@ void subscriber::pub_copied(
 void subscriber::pub_moved(
 	publisher& old_pub, publisher& new_pub) {
 
-	if (DEBUG) std::cout << "pub_moved\n";
+	if (pubsub_DEBUG) std::cout << "pub_moved\n";
 
 	auto fcn_pub_killed = [this, &new_pub]() {
 		map_to_update_fcn.erase(&new_pub);

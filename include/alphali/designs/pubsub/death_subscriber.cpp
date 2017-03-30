@@ -2,14 +2,9 @@
 #include <algorithm>
 #include <iostream>
 #include "death_publisher.h"
+#include "detail/pubsub_log.h"
 
 using namespace alphali;
-
-
-
-namespace {
-	const bool DEBUG = false;
-}
 
 
 
@@ -17,7 +12,7 @@ death_subscriber::death_subscriber()
 	: list_pubs(),
 	map_to_death_fcn() {
 
-	if (DEBUG) std::cout << "DeathSub ctor\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub ctor\n";
 
 }
 
@@ -30,7 +25,7 @@ death_subscriber& death_subscriber::operator=(const death_subscriber& other) {
 	
 	if(this != &other) {
 
-		if (DEBUG) std::cout << "DeathSub copy\n";
+		if (pubsub_DEBUG) std::cout << "DeathSub copy\n";
 
 		detach_all();
 
@@ -53,7 +48,7 @@ death_subscriber& death_subscriber::operator=(death_subscriber&& other) {
 	
 	if(this != &other) {
 
-		if (DEBUG) std::cout << "DeathSub move\n";
+		if (pubsub_DEBUG) std::cout << "DeathSub move\n";
 
 		detach_all();
 
@@ -74,7 +69,7 @@ death_subscriber& death_subscriber::operator=(death_subscriber&& other) {
 
 death_subscriber::~death_subscriber() {
 
-	if (DEBUG) std::cout << "DeathSub dtor\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub dtor\n";
 
 	detach_all();
 
@@ -86,7 +81,7 @@ void death_subscriber::subscribe(
 	death_publisher& pub,
 	std::function<void()> fcn_pub_death) {
 
-	if (DEBUG) std::cout << "DeathSub subscribe\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub subscribe\n";
 
 	if(list_pubs.count(&pub) == 0) {
 		pub.attach(*this);
@@ -99,7 +94,7 @@ void death_subscriber::subscribe(
 
 void death_subscriber::unsubscribe(death_publisher& pub) {
 
-	if (DEBUG) std::cout << "DeathSub unsubscribe\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub unsubscribe\n";
 
 	if(list_pubs.count(&pub) > 0) {
 		pub.detach(*this);
@@ -114,7 +109,7 @@ void death_subscriber::unsubscribe(death_publisher& pub) {
 void death_subscriber::pub_moved(
 	death_publisher& pub_old, death_publisher& pub_new) {
 
-	if (DEBUG) std::cout << "DeathSub pub_moved\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub pub_moved\n";
 
 	list_pubs.erase(&pub_old);
 	list_pubs.emplace(&pub_new);
@@ -130,7 +125,7 @@ void death_subscriber::pub_moved(
 
 void death_subscriber::pub_killed(death_publisher& pub) {
 
-	if (DEBUG) std::cout << "DeathSub pub_killed\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub pub_killed\n";
 
 	auto matches = map_to_death_fcn.equal_range(&pub);
 	for (auto match = matches.first; match != matches.second; ++match) {
@@ -145,7 +140,7 @@ void death_subscriber::pub_killed(death_publisher& pub) {
 
 void death_subscriber::detach_all() {
 
-	if (DEBUG) std::cout << "DeathSub detach_all\n";
+	if (pubsub_DEBUG) std::cout << "DeathSub detach_all\n";
 
 	auto fcn = [this](death_publisher* pub) {
 		pub->detach(*this);
