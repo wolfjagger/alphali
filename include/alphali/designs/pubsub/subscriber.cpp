@@ -1,8 +1,15 @@
 #include "subscriber.h"
+#include <iostream>
 #include "publisher.h"
 #include "collaborator.h"
 
 using namespace alphali;
+
+
+
+namespace {
+	const bool DEBUG = false;
+}
 
 
 
@@ -11,6 +18,8 @@ subscriber::subscriber()
 	sub_death_sub(),
 	list_pubs(),
 	map_to_update_fcn() {
+
+	if (DEBUG) std::cout << "Sub ctor\n";
 
 }
 
@@ -22,6 +31,8 @@ subscriber::subscriber(const subscriber& other) {
 subscriber& subscriber::operator=(const subscriber& other) {
 
 	if(this != &other) {
+
+		if (DEBUG) std::cout << "Sub copy\n";
 
 		sub_death_pub = death_publisher();
 		sub_death_sub = death_subscriber();
@@ -51,6 +62,8 @@ subscriber& subscriber::operator=(subscriber&& other) {
 
 	if(this != &other) {
 
+		if(DEBUG) std::cout << "Sub move\n";
+
 		sub_death_pub = death_publisher();
 		sub_death_sub = death_subscriber();
 		list_pubs = std::move(other.list_pubs);
@@ -77,7 +90,7 @@ subscriber& subscriber::operator=(subscriber&& other) {
 
 
 subscriber::~subscriber() {
-
+	if (DEBUG) std::cout << "Sub dtor\n";
 }
 
 
@@ -85,28 +98,21 @@ subscriber::~subscriber() {
 void subscriber::subscribe(
 	publisher& publisher, std::function<void()> fcn_update) {
 
-	if(map_to_update_fcn.count(&publisher) > 0) {
+	if (DEBUG) std::cout << "subscribe\n";
 
-		auto& old_fcn = map_to_update_fcn.at(&publisher);
-		auto tot_fcn = [old_fcn, fcn_update]() {
-			old_fcn();
-			fcn_update();
-		};
-		map_to_update_fcn.at(&publisher) = std::move(tot_fcn);
-
-	} else {
+	if(list_pubs.count(&publisher) == 0) {
 
 		auto fcn_pub_killed = [this, &publisher]() {
 			map_to_update_fcn.erase(&publisher);
 		};
 		sub_death_sub.subscribe(publisher.pub_death_pub, fcn_pub_killed);
-	
-		publisher.attach(*this);
 
+		publisher.attach(*this);
 		list_pubs.emplace(&publisher);
-		map_to_update_fcn.emplace(&publisher, std::move(fcn_update));
 
 	}
+
+	map_to_update_fcn.emplace(&publisher, std::move(fcn_update));
 
 }
 
@@ -114,7 +120,9 @@ void subscriber::subscribe(
 
 void subscriber::unsubscribe(publisher& publisher) {
 
-	if(map_to_update_fcn.count(&publisher) > 0) {
+	if (DEBUG) std::cout << "unsubscribe\n";
+
+	if(list_pubs.count(&publisher) > 0) {
 
 		sub_death_sub.unsubscribe(publisher.pub_death_pub);
 		publisher.detach(*this);
@@ -144,7 +152,12 @@ void subscriber::unsubscribe(collaborator& collab) {
 
 void subscriber::update(publisher& pub) {
 	
-	map_to_update_fcn.at(&pub)();
+	if (DEBUG) std::cout << "update\n";
+
+	auto matches = map_to_update_fcn.equal_range(&pub);
+	for (auto match = matches.first; match != matches.second; ++match) {
+		match->second();
+	}
 
 }
 
@@ -153,19 +166,24 @@ void subscriber::update(publisher& pub) {
 void subscriber::pub_copied(
 	const publisher& old_pub, publisher& new_pub) {
 
+	if (DEBUG) std::cout << "pub_copied\n";
+
 	auto fcn_pub_killed = [this, &new_pub]() {
 		map_to_update_fcn.erase(&new_pub);
 	};
 	sub_death_sub.subscribe(new_pub.pub_death_pub, fcn_pub_killed);
 
-	//TODO: Find another waaaaaaay!!!
-	auto fcn_update = map_to_update_fcn.at(&old_pub);
-	map_to_update_fcn.emplace(&new_pub, std::move(fcn_update));
+	auto matches = map_to_update_fcn.equal_range(&old_pub);
+	for (auto match = matches.first; match != matches.second; ++match) {
+		map_to_update_fcn.emplace(&new_pub, match->second);
+	}
 
 }
 
 void subscriber::pub_moved(
 	publisher& old_pub, publisher& new_pub) {
+
+	if (DEBUG) std::cout << "pub_moved\n";
 
 	auto fcn_pub_killed = [this, &new_pub]() {
 		map_to_update_fcn.erase(&new_pub);
@@ -173,8 +191,11 @@ void subscriber::pub_moved(
 	sub_death_sub.unsubscribe(old_pub.pub_death_pub);
 	sub_death_sub.subscribe(new_pub.pub_death_pub, fcn_pub_killed);
 
-	auto fcn_update = std::move(map_to_update_fcn.at(&old_pub));
+	for(auto match = map_to_update_fcn.lower_bound(&old_pub);
+		match != map_to_update_fcn.upper_bound(&old_pub); ++match) {
+		map_to_update_fcn.emplace(&new_pub, std::move(match->second));
+	}
+
 	map_to_update_fcn.erase(&old_pub);
-	map_to_update_fcn.emplace(&new_pub, std::move(fcn_update));
 
 }

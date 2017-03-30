@@ -13,7 +13,7 @@ namespace alphali {
 	class subscriber {
 
 		using set = std::set<publisher*>;
-		using map = std::map<
+		using map = std::multimap<
 			const publisher*, std::function<void()>>;
 
 	private:

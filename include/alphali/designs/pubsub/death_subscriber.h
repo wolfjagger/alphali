@@ -13,7 +13,7 @@ namespace alphali {
 	class death_subscriber {
 
 		using set = std::set<death_publisher*>;
-		using map = std::map<
+		using map = std::multimap<
 			const death_publisher*, std::function<void()>>;
 
 	private:

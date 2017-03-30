@@ -1,7 +1,14 @@
 #include "publisher.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace alphali;
+
+
+
+namespace {
+	const bool DEBUG = false;
+}
 
 
 
@@ -9,6 +16,8 @@ publisher::publisher()
 	: pub_death_pub(),
 	pub_death_sub(),
 	list_subs() {
+
+	if (DEBUG) std::cout << "Pub ctor\n";
 
 }
 
@@ -20,6 +29,8 @@ publisher::publisher(const publisher& other) {
 publisher& publisher::operator=(const publisher& other) {
 
 	if(this != &other) {
+
+		if (DEBUG) std::cout << "Pub copy\n";
 
 		pub_death_pub = death_publisher();
 		pub_death_sub = death_subscriber();
@@ -48,11 +59,14 @@ publisher& publisher::operator=(publisher&& other) {
 
 	if(this != &other) {
 
+		if (DEBUG) std::cout << "Pub move\n";
+
 		pub_death_pub = death_publisher();
 		pub_death_sub = death_subscriber();
 		list_subs = std::move(other.list_subs);
 
-		for(auto* pSub : list_subs) {
+		for (auto* pSub : list_subs) {
+
 			auto fcnSubKilled = [this, &pSub]() {
 				list_subs.erase(pSub);
 			};
@@ -61,6 +75,7 @@ publisher& publisher::operator=(publisher&& other) {
 				pSub->sub_death_pub, std::move(fcnSubKilled));
 
 			pSub->pub_moved(other, *this);
+
 		}
 
 	}
@@ -72,24 +87,29 @@ publisher& publisher::operator=(publisher&& other) {
 
 
 publisher::~publisher() {
-
+	if (DEBUG) std::cout << "Pub dtor\n";
 }
 
 
 
 void publisher::publish() {
 
-	auto fcn_update = [this](subscriber* sub) {
-		sub->update(*this);
-	};
+	if (DEBUG) {
+		std::cout << "publish" << std::endl;
+		std::cout << "num: " << list_subs.size() << std::endl;
+	}
 
-	std::for_each(list_subs.begin(), list_subs.end(), fcn_update);
+	for (auto sub : list_subs) {
+		sub->update(*this);
+	}
 
 }
 
 
 
 void publisher::attach(subscriber& subscriber) {
+
+	if (DEBUG) std::cout << "attach" << std::endl;
 
 	auto fcn_sub_killed = [this, &subscriber]() {
 		list_subs.erase(&subscriber);
@@ -101,6 +121,8 @@ void publisher::attach(subscriber& subscriber) {
 }
 
 void publisher::detach(subscriber& subscriber) {
+
+	if (DEBUG) std::cout << "detach" << std::endl;
 
 	pub_death_sub.unsubscribe(subscriber.sub_death_pub);
 	list_subs.erase(&subscriber);

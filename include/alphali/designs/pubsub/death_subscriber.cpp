@@ -1,14 +1,23 @@
 #include "death_subscriber.h"
 #include <algorithm>
+#include <iostream>
 #include "death_publisher.h"
 
 using namespace alphali;
 
 
 
+namespace {
+	const bool DEBUG = false;
+}
+
+
+
 death_subscriber::death_subscriber()
 	: list_pubs(),
 	map_to_death_fcn() {
+
+	if (DEBUG) std::cout << "DeathSub ctor\n";
 
 }
 
@@ -20,6 +29,8 @@ death_subscriber::death_subscriber(const death_subscriber& other) {
 death_subscriber& death_subscriber::operator=(const death_subscriber& other) {
 	
 	if(this != &other) {
+
+		if (DEBUG) std::cout << "DeathSub copy\n";
 
 		detach_all();
 
@@ -42,6 +53,8 @@ death_subscriber& death_subscriber::operator=(death_subscriber&& other) {
 	
 	if(this != &other) {
 
+		if (DEBUG) std::cout << "DeathSub move\n";
+
 		detach_all();
 
 		list_pubs = std::move(other.list_pubs);
@@ -61,6 +74,8 @@ death_subscriber& death_subscriber::operator=(death_subscriber&& other) {
 
 death_subscriber::~death_subscriber() {
 
+	if (DEBUG) std::cout << "DeathSub dtor\n";
+
 	detach_all();
 
 }
@@ -71,28 +86,22 @@ void death_subscriber::subscribe(
 	death_publisher& pub,
 	std::function<void()> fcn_pub_death) {
 
-	if(map_to_death_fcn.count(&pub) > 0) {
+	if (DEBUG) std::cout << "DeathSub subscribe\n";
 
-		auto& old_fcn = map_to_death_fcn.at(&pub);
-		auto totFcn = [old_fcn, fcn_pub_death]() {
-			old_fcn();
-			fcn_pub_death();
-		};
-		map_to_death_fcn.at(&pub) = std::move(totFcn);
-
-	} else {
-
+	if(list_pubs.count(&pub) == 0) {
 		pub.attach(*this);
 		list_pubs.emplace(&pub);
-		map_to_death_fcn.emplace(&pub, std::move(fcn_pub_death));
-
 	}
+
+	map_to_death_fcn.emplace(&pub, std::move(fcn_pub_death));
 
 }
 
 void death_subscriber::unsubscribe(death_publisher& pub) {
 
-	if(map_to_death_fcn.count(&pub) > 0) {
+	if (DEBUG) std::cout << "DeathSub unsubscribe\n";
+
+	if(list_pubs.count(&pub) > 0) {
 		pub.detach(*this);
 		list_pubs.erase(&pub);
 		map_to_death_fcn.erase(&pub);
@@ -105,19 +114,28 @@ void death_subscriber::unsubscribe(death_publisher& pub) {
 void death_subscriber::pub_moved(
 	death_publisher& pub_old, death_publisher& pub_new) {
 
-	auto fcn = std::move(map_to_death_fcn.at(&pub_old)); // Bad?
+	if (DEBUG) std::cout << "DeathSub pub_moved\n";
 
 	list_pubs.erase(&pub_old);
 	list_pubs.emplace(&pub_new);
 
+	for (auto match = map_to_death_fcn.lower_bound(&pub_old);
+		match != map_to_death_fcn.upper_bound(&pub_old); ++match) {
+		map_to_death_fcn.emplace(&pub_new, std::move(match->second));
+	}
+
 	map_to_death_fcn.erase(&pub_old);
-	map_to_death_fcn.emplace(&pub_new, std::move(fcn));
 	
 }
 
 void death_subscriber::pub_killed(death_publisher& pub) {
 
-	map_to_death_fcn.at(&pub)();
+	if (DEBUG) std::cout << "DeathSub pub_killed\n";
+
+	auto matches = map_to_death_fcn.equal_range(&pub);
+	for (auto match = matches.first; match != matches.second; ++match) {
+		match->second();
+	}
 	list_pubs.erase(&pub);
 	map_to_death_fcn.erase(&pub);
 
@@ -126,6 +144,8 @@ void death_subscriber::pub_killed(death_publisher& pub) {
 
 
 void death_subscriber::detach_all() {
+
+	if (DEBUG) std::cout << "DeathSub detach_all\n";
 
 	auto fcn = [this](death_publisher* pub) {
 		pub->detach(*this);
