@@ -90,8 +90,8 @@ publisher::~publisher() {
 void publisher::publish() {
 
 	if (pubsub_DEBUG) {
-		std::cout << "Pub publish" << std::endl;
-		std::cout << "num: " << list_subs.size() << std::endl;
+		std::cout << "Pub publish to " << list_subs.size();
+		std::cout << " subscribers" << std::endl;
 	}
 
 	for (auto sub : list_subs) {

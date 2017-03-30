@@ -71,7 +71,10 @@ void death_publisher::detach(death_subscriber& sub) {
 
 void death_publisher::publish() {
 
-	if (pubsub_DEBUG) std::cout << "DeathPub publish" << std::endl;
+	if (pubsub_DEBUG) {
+		std::cout << "DeathPub publish to" << list_subs.size();
+		std::cout << " subscribers" << std::endl;
+	}
 
 	auto fcn_killed = [this](death_subscriber* sub) {
 		sub->pub_killed(*this);
