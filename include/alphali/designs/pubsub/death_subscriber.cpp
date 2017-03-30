@@ -140,7 +140,10 @@ void death_subscriber::pub_killed(death_publisher& pub) {
 
 void death_subscriber::detach_all() {
 
-	if (pubsub_DEBUG) std::cout << "DeathSub detach_all\n";
+	if (pubsub_DEBUG) {
+		std::cout << "DeathSub detach_all from \n" << list_pubs.size();
+		std::cout << " publishers" << std::endl;
+	}
 
 	auto fcn = [this](death_publisher* pub) {
 		pub->detach(*this);
