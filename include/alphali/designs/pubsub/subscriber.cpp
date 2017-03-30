@@ -93,7 +93,7 @@ subscriber::~subscriber() {
 void subscriber::subscribe(
 	publisher& publisher, std::function<void()> fcn_update) {
 
-	if (pubsub_DEBUG) std::cout << "subscribe\n";
+	if (pubsub_DEBUG) std::cout << "Sub subscribe\n";
 
 	if(list_pubs.count(&publisher) == 0) {
 
@@ -115,7 +115,7 @@ void subscriber::subscribe(
 
 void subscriber::unsubscribe(publisher& publisher) {
 
-	if (pubsub_DEBUG) std::cout << "unsubscribe\n";
+	if (pubsub_DEBUG) std::cout << "Sub unsubscribe\n";
 
 	if(list_pubs.count(&publisher) > 0) {
 
@@ -147,7 +147,7 @@ void subscriber::unsubscribe(collaborator& collab) {
 
 void subscriber::update(publisher& pub) {
 	
-	if (pubsub_DEBUG) std::cout << "update\n";
+	if (pubsub_DEBUG) std::cout << "Sub update\n";
 
 	auto matches = map_to_update_fcn.equal_range(&pub);
 	for (auto match = matches.first; match != matches.second; ++match) {
@@ -161,7 +161,7 @@ void subscriber::update(publisher& pub) {
 void subscriber::pub_copied(
 	const publisher& old_pub, publisher& new_pub) {
 
-	if (pubsub_DEBUG) std::cout << "pub_copied\n";
+	if (pubsub_DEBUG) std::cout << "Sub pub_copied\n";
 
 	auto fcn_pub_killed = [this, &new_pub]() {
 		map_to_update_fcn.erase(&new_pub);
@@ -178,7 +178,7 @@ void subscriber::pub_copied(
 void subscriber::pub_moved(
 	publisher& old_pub, publisher& new_pub) {
 
-	if (pubsub_DEBUG) std::cout << "pub_moved\n";
+	if (pubsub_DEBUG) std::cout << "Sub pub_moved\n";
 
 	auto fcn_pub_killed = [this, &new_pub]() {
 		map_to_update_fcn.erase(&new_pub);

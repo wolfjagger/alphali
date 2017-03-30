@@ -90,7 +90,7 @@ publisher::~publisher() {
 void publisher::publish() {
 
 	if (pubsub_DEBUG) {
-		std::cout << "publish" << std::endl;
+		std::cout << "Pub publish" << std::endl;
 		std::cout << "num: " << list_subs.size() << std::endl;
 	}
 
@@ -104,7 +104,7 @@ void publisher::publish() {
 
 void publisher::attach(subscriber& subscriber) {
 
-	if (pubsub_DEBUG) std::cout << "attach" << std::endl;
+	if (pubsub_DEBUG) std::cout << "Pub attach" << std::endl;
 
 	auto fcn_sub_killed = [this, &subscriber]() {
 		list_subs.erase(&subscriber);
@@ -117,7 +117,7 @@ void publisher::attach(subscriber& subscriber) {
 
 void publisher::detach(subscriber& subscriber) {
 
-	if (pubsub_DEBUG) std::cout << "detach" << std::endl;
+	if (pubsub_DEBUG) std::cout << "Pub detach" << std::endl;
 
 	pub_death_sub.unsubscribe(subscriber.sub_death_pub);
 	list_subs.erase(&subscriber);
