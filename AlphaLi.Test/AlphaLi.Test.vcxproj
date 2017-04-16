@@ -181,6 +181,7 @@
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClCompile Include="util\random.test.cpp" />
+    <ClCompile Include="util\timer.test.cpp" />
     <ClCompile Include="util\static_for.test.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>

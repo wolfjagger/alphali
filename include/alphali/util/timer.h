@@ -28,6 +28,8 @@ namespace alphali {
 
 		}
 
+
+
 		void start() {
 			end_time.reset();
 			beg_time = clock.now();
@@ -37,14 +39,13 @@ namespace alphali {
 			end_time = std::make_unique<tp>(clock.now());
 		}
 
+
+
 		void output(std::string code_block_description) {
 
-			if(end_time) {
+			try {
 
-				using namespace std::chrono;
-
-				auto time_diff = duration_cast<milliseconds>(*end_time - beg_time);
-				auto secs = float(time_diff.count()) / 1000;
+				auto secs = secs_elapsed();
 
 				if (code_block_description.empty()) {
 					std::cout << "Took " << secs << " secs" << std::endl;
@@ -53,9 +54,30 @@ namespace alphali {
 						<< " took " << secs << " secs" << std::endl;
 				}
 
+			} catch(std::exception& e) {
+
+				std::cout << e.what() << std::endl;
+
+			}
+
+		}
+
+
+
+		double secs_elapsed() const {
+
+			if (end_time) {
+
+				using namespace std::chrono;
+
+				auto time_diff = duration_cast<milliseconds>(*end_time - beg_time);
+				auto secs = double(time_diff.count()) / 1000;
+
+				return secs;
+
 			} else {
 
-				std::cout << "Timer not stopped before output request." << std::endl;
+				throw std::exception("Timer not stopped before output request.");
 
 			}
 
