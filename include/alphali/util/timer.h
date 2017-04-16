@@ -28,6 +28,24 @@ namespace alphali {
 
 		}
 
+		timer(const timer& other) {
+			*this = other;
+		}
+		timer& operator=(const timer& other) {
+			clock = other.clock;
+			beg_time = other.beg_time;
+			if (other.end_time) {
+				end_time = std::make_unique<tp>(*other.end_time);
+			} else {
+				end_time.reset();
+			}
+		}
+
+		timer(timer&& other) = default;
+		timer& operator=(timer&& other) = default;
+
+		~timer() = default;
+
 
 
 		void start() {
